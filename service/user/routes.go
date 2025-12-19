@@ -3,6 +3,8 @@ package user
 import (
 	"net/http"
 
+	"github.com/ServetDeveloper/order-management/types"
+	"github.com/ServetDeveloper/order-management/utils"
 	"github.com/gorilla/mux"
 )
 
@@ -23,5 +25,9 @@ func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
+	var payload types.RegisterUserPayload
 
+	if err := utils.ParseJson(r, payload); err != nil {
+		utils.WriteError(w, http.StatusBadRequest, err)
+	}
 }
