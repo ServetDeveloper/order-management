@@ -36,11 +36,11 @@ func initConfig() Config {
 		DBName: getEnv("DB_NAME", "order_management"),
 	}
 
-	Validate(cfg)
+	validate(cfg)
 	return cfg
 }
 
-func Validate(c Config) {
+func validate(c Config) {
 	if c.DBPassword == "" {
 		log.Fatal("DB_PASSWORD is required")
 	}
