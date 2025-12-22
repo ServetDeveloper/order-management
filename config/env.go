@@ -22,6 +22,7 @@ var Envs = initConfig()
 
 func initConfig() Config {
 	err := godotenv.Load()
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -32,7 +33,7 @@ func initConfig() Config {
 		DBUser:     getEnv("DB_USER", "root"),
 		DBPassword: getEnv("DB_PASSWORD", ""),
 		DBAddress: fmt.Sprintf("%s:%s", getEnv("DB_HOST", "127.0.0.1"),
-			getEnv("DB_PORT", "127.0.0.1")),
+			getEnv("DB_PORT", "3306")),
 		DBName: getEnv("DB_NAME", "order_management"),
 	}
 

@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	datab, err := db.NewMySQLStorage(mysql.Config{
+	database, err := db.NewMySQLStorage(mysql.Config{
 		User:                 config.Envs.DBUser,
 		Passwd:               config.Envs.DBPassword,
 		Addr:                 config.Envs.DBAddress,
@@ -20,14 +20,13 @@ func main() {
 		AllowNativePasswords: true,
 		ParseTime:            true,
 	})
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	initStorage(datab)
+	initStorage(database)
 
-	server := api.NewAPIServer(":8080", datab)
+	server := api.NewAPIServer(":8080", database)
 
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
@@ -35,8 +34,7 @@ func main() {
 }
 
 func initStorage(db *sql.DB) {
-	err := db.Ping()
-	if err != nil {
+	if err := db.Ping(); err != nil {
 		log.Fatal(err)
 	}
 
